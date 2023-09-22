@@ -17,5 +17,5 @@ class Physics:
         body = pymunk.Body(body_type=pymunk.Body.STATIC)
         body.position = pos
         shape = pymunk.Circle(body, 50)
-        space.add(body, shape)
+        self.space.add(body, shape)
         return shape

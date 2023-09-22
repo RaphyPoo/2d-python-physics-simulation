@@ -6,14 +6,17 @@ from physics.Physics import Physics
 class Render:
     def __init__(self):
         pygame.init()
-        self.screen = pygame.display.set_mode((800, 800))  # creating the display surface
+        self.screen = pygame.display.set_mode((800, 800))
         self.clock = pygame.time.Clock()
         self.Physics = Physics()
+        pygame.display.set_caption("Physics Simulations")
 
     def run(self):
         circles = []
-        while True:
+        isPlaying = True
+        while isPlaying:
             for event in pygame.event.get():
+                print(event)
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
