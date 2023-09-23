@@ -7,6 +7,7 @@ from objects.Line import Line
 
 class Simulation3: 
     def __init__(self, render):
+        self.render = render
         self.screen = render.screen
         self.width = render.width
         self.height = render.height
@@ -43,6 +44,9 @@ class Simulation3:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
+                if event.type == pygame.KEYDOWN:
+                  if event.key == pygame.K_ESCAPE:
+                    self.render.pause_menu()
 
             for physic in physics:
                 physic.space.step(1 / 50)        

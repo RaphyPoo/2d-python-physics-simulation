@@ -19,6 +19,8 @@ class Render:
         pygame.display.set_caption("Physics Simulations")
 
     def main_menu(self):
+      self.screen.fill((0, 0, 0))
+
       while True:
           pygame.display.set_caption("Physics Simulations")
           MENU_MOUSE_POS = pygame.mouse.get_pos()
@@ -61,6 +63,32 @@ class Render:
 
           pygame.display.update()
 
-    def pause_menu():
-        while True:
-            print('pause')
+    def pause_menu(self, is_paused):
+        MENU_MOUSE_POS = pygame.mouse.get_pos()
+
+        MENU_TEXT = get_font(100).render("PAUSED", True, "#b68f40")
+        MENU_RECT = MENU_TEXT.get_rect(center=(self.width/2, 100))
+
+        RESUME_BUTTON = Button(image=None, pos=(self.width/2, 250), 
+                            text_input="Resume", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
+        
+        MAIN_MENU_BUTTON = Button(image=None, pos=(self.width/2, 350), 
+                            text_input="Main Menu", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
+
+        self.screen.blit(MENU_TEXT, MENU_RECT)
+
+        for button in [RESUME_BUTTON, MAIN_MENU_BUTTON]:
+            button.changeColor(MENU_MOUSE_POS)
+            button.update(self.screen)
+        
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if RESUME_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    is_paused[0] = False
+                if MAIN_MENU_BUTTON.checkForInput(MENU_MOUSE_POS):
+                    self.main_menu()
+
+        pygame.display.update()
