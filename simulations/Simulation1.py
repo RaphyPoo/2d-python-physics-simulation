@@ -18,12 +18,15 @@ class Simulation1:
         self.screen.fill((0, 0, 0))
         lines = []
         circles = []
+        trails = []
         lines.append(Line((self.width/2, self.height), (self.width, self.height/2), 1.0, pymunk.Body.STATIC, 10, 5, physics, self))
         lines.append(Line((self.width/2, self.height), (0, self.height/2), 1.0, pymunk.Body.STATIC, 10, 5, physics, self))
 
         circles.append(Circle((self.width/2 - 10, self.height/2), 1.0, pymunk.Body.DYNAMIC, 100, 2, physics, self))
 
         while True:
+            self.screen.fill((0, 0, 0))
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -40,8 +43,13 @@ class Simulation1:
                 line.draw()
             for circle in circles:
                 circle.draw()
+                trails.append(circle.body.position)
+
+            for trail in trails:
+                pygame.draw.circle(self.screen, (255, 255, 255), trail, 2)
 
             if is_paused[0] == True:
                 self.render.pause_menu(is_paused)
+
             pygame.display.update()
             self.clock.tick(120)

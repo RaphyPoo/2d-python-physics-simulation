@@ -71,7 +71,7 @@ class Render:
 
         RESUME_BUTTON = Button(image=None, pos=(self.width/2, 250), 
                             text_input="Resume", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
-        
+
         MAIN_MENU_BUTTON = Button(image=None, pos=(self.width/2, 350), 
                             text_input="Main Menu", font=get_font(50), base_color="#d7fcd4", hovering_color="White")
 
@@ -80,7 +80,7 @@ class Render:
         for button in [RESUME_BUTTON, MAIN_MENU_BUTTON]:
             button.changeColor(MENU_MOUSE_POS)
             button.update(self.screen)
-        
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()

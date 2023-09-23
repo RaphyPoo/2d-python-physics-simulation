@@ -7,6 +7,7 @@ from objects.Line import Line
 
 class Simulation3: 
     def __init__(self, render):
+        is_paused = [False]
         self.render = render
         self.screen = render.screen
         self.width = render.width
@@ -38,15 +39,21 @@ class Simulation3:
         lines = [line_bottom_left, line_bottom_right, line_top_left, line_top_right]
         circles = [circle_1, circle_2, circle_3, circle_4]
         physics = [physics_1, physics_2, physics_3, physics_4]
+        trails = []
 
         while True:
+            self.screen.fill((0, 0, 0))
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     sys.exit()
                 if event.type == pygame.KEYDOWN:
                   if event.key == pygame.K_ESCAPE:
-                    self.render.pause_menu()
+                    if is_paused[0] == True:
+                        is_paused[0] = False
+                    else:
+                        is_paused[0] = True
 
             for physic in physics:
                 physic.space.step(1 / 50)        
@@ -54,6 +61,13 @@ class Simulation3:
                 line.draw()
             for circle in circles:
                 circle.draw()
+                trails.append(circle.body.position)
+
+            for trail in trails:
+                pygame.draw.circle(self.screen, (255, 255, 255), trail, 2)
+
+            if is_paused[0] == True:
+                self.render.pause_menu(is_paused)
 
             pygame.display.update()
             self.clock.tick(120)
